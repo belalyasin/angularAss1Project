@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  <div class="col-md-7">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">User Data Table</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+            <th>Name</th>
+            <th>birthdate</th>
+            <th>email</th>
+            <th>phone</th>
+            <th>address</th>
+            <th>actions
+              <button class="btn btn-success" (click)="onClick()">+</button>
+            </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userdata; let i=index;">
+              <td>{{user.id}}</td>
+              <td>{{user.name.first}} {{user.name.last}}</td>
+              <td>{{user.birthdate}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.phone}}</td>
+              <td>{{user.address}}</td>
+              <td>
+                <button class="btn btn-warning btn-xs" (click)="onEdit(i)">Edit</button>
+                <button class="btn btn-danger btn-xs" (click)="onRemove(i)">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+
+  <div class="col-md-5" *ngIf="isDisabled">
+    <!-- general form elements -->
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Add User</h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+        <div class="form-group" >
+          <label for="exampleInputEmail1">ID</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Your ID" [(ngModel)]="person.id">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">First Name</label>
+          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Your First Name" [(ngModel)]="person.name.first">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Last Name</label>
+          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Your Last Name" [(ngModel)]="person.name.last">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Birthdate</label>
+          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Your Birthdate" [(ngModel)]="person.birthdate">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Email</label>
+          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Your Email" [(ngModel)]="person.email">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Phone</label>
+          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Your Phone" [(ngModel)]="person.phone">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Address</label>
+          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Your Address" [(ngModel)]="person.address">
+        </div>
+        <button class="btn btn-primary" *ngIf="iscreated" (click)="onCreate()">Create</button>
+        <button class="btn btn-primary" *ngIf="isEdited" (click)="onUpdate(indexs)">Update</button>
+    </div>
+    <!-- /.card -->
+  </div>
+
+</body>
+</html>
+
+
+<!-- <div>
+  <div class="w-70 left">
+    <table [border]="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>birthdate</th>
+          <th>email</th>
+          <th>phone</th>
+          <th>address</th>
+          <th>actions
+            <button (click)="onClick()">+</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userdata; let i=index;">
+          <td>{{user.id}}</td>
+          <td>{{user.name.first}} {{user.name.last}}</td>
+          <td>{{user.birthdate}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.phone}}</td>
+          <td>{{user.address}}</td>
+          <td>
+            <button (click)="onEdit(i)">Edit</button>
+            <button (click)="onRemove(i)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="w-30 right" [ngStyle]="{'margin-top':'20px'}" *ngIf="isDisabled">
+    <div>
+      <input type="text" placeholder='Enter Your ID' [(ngModel)]="person.id">
+    </div>
+    <div>
+      <input type="text" placeholder='Enter Your First Name' [(ngModel)]="person.name.first">
+    </div>
+    <div>
+      <input type="text" placeholder='Enter Your Last Name' [(ngModel)]="person.name.last">
+    </div>
+    <div>
+      <input type="text" placeholder='Enter Your birthdate ' [(ngModel)]="person.birthdate">
+    </div>
+    <div>
+      <input type="text" placeholder='Enter Your email' [(ngModel)]="person.email">
+    </div>
+    <div>
+      <input type="text" placeholder='Enter Your phone' [(ngModel)]="person.phone">
+    </div>
+    <div>
+      <input type="text" placeholder='Enter Your address' [(ngModel)]="person.address">
+    </div>
+    <div>
+      <button *ngIf="iscreated" (click)="onCreate()">Create</button>
+      <button *ngIf="isEdited" (click)="onUpdate(indexs)">Update</button>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+
